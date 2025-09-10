@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basra Flow | ورشة أساسيات الأمان الرقمي (النسخة المعمّقة)</title>
+    <style>
+        /* --- الإعدادات العامة والخطوط --- */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            direction: rtl;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        /* --- تنسيق الهيدر والشعار --- */
+        header {
+            text-align: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            width: 150px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            border: 3px solid #0056b3;
+            padding: 5px;
+            background-color: #fff;
+        }
+
+        header h1 {
+            color: #0056b3;
+            font-size: 2.5em;
+            margin-top: 0;
+            line-height: 1.3;
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: #666;
+        }
+
+        /* --- تنسيق أقسام الكورس --- */
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #0056b3;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.9em;
+        }
+
+        .section p,
+        .section ul {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .section ul {
+            list-style-type: none;
+            padding-right: 0;
+            display: inline;
+        }
+
+        .section ul li {
+            display: inline;
+        }
+
+        .section ul li:not(:last-child)::after {
+            content: '، ';
+        }
+
+        .highlight {
+            background-color: #e7f3ff;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-family: monospace;
+            direction: ltr;
+            display: inline-block;
+        }
+
+        .tip {
+            background-color: #fffbe6;
+            border-right: 4px solid #ffc107;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 5px;
+        }
+
+        .tip strong {
+            color: #b38600;
+        }
+
+        #certificate-trigger {
+            text-align: center;
+            padding: 20px;
+        }
+
+        #show-form-btn {
+            display: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        #show-form-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        #form-section,
+        #thank-you-message {
+            display: none;
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 8px;
+            border-top: 5px solid #0056b3;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        #form-section h2,
+        #thank-you-message h2 {
+            text-align: center;
+            color: #0056b3;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group label .required-star {
+            color: red;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+
+        .form-group input[dir="ltr"] {
+            text-align: left;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-submit-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #0056b3;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #thank-you-message p {
+            font-size: 1.2em;
+            line-height: 1.7;
+        }
+
+        #thank-you-message .org-name {
+            font-weight: bold;
+            color: #0056b3;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <img src="/logo.jpg" alt="شعار Basra Flow" class="logo">
+            <h1>ورشة: أساسيات الأمان الرقمي</h1>
+        </header>
+
+        <main>
+            <div class="section">
+                <h2>المقدمة</h2>
+                <p>أهلاً وسهلاً بكم، اليوم راح نتعمق أكثر بعالم الأمان الرقمي، كلنا نعرف الإنترنت صار مثل الهوا اللي
+                    نتنفسه: شغل، دراسة، تواصل، وحتى تسوّق. بس مثل ما الشارع المفتوح بيه مخاطر، الإنترنت هم بيه ناس مو
+                    خوش، يحاولون يستغلون أي فرصة حتى يخمطون حساباتنا، صورنا، أو حتى فلوسنا..</p>
+                <p>بهاي الورشة، راح نترك السطحيات ونغوص بالتفاصيل، راح نتعلم مو بس "شنو نسوي"، لا، راح نتعلم "ليش" نسوي
+                    هيج، وشلون نفكر مثل المخترق حتى نسبقه بخطوة. يلا نبدي.</p>
+            </div>
+
+            <div class="section">
+                <h2>المحور الأول – كلمات المرور: مفتاح بيتك الرقمي</h2>
+                <p>كلمة المرور مو مجرد كلمة، هي فعليًا مفتاح كل أبوابك على الإنترنت. إذا مفتاحك سهل النسخ (مثل <span
+                        class="highlight">123456</span>، <span class="highlight">qwerty</span>، أو اسمك ومواليدك)، فكأنك
+                    معلّگ نسخة من مفتاح بيتك على الباب وكاتب عليه "تفضلوا"...</p>
+                <h3>شنو مواصفات كلمة المرور الفولاذية؟</h3>
+                <ol>
+                    <li><strong>الطول أهم من التعقيد:</strong> قبل كنا نگول 8 حروف كافي، هسة لا، الخبراء يگولون
+                        <strong>12 حرف عالأقل</strong>، كلما طالت، صارت أصعب بمليارات المرات على برامج التخمين.</li>
+                    <li><strong>التنويع مطلوب:</strong> لازم تكون كوكتيل من:
+                        <ul>
+                            <li>حروف إنجليزية چبيرة (Capital)</li>
+                            <li>حروف إنجليزية زغيرة (Small)</li>
+                            <li>أرقام (0-9)</li>
+                            <li>رموز خاصة (!@#$%^&*)</li>
+                        </ul>
+                    </li>
+                    <li><strong>لازم تكون عشوائية (بس تگدر تحفظها):</strong>
+                        <p style="margin-bottom: 5px;"><strong>الطريقة الغلط:</strong> <span
+                                class="highlight">Ali1995</span> (سهلة التخمين جدًا).</p>
+                        <p><strong>الطريقة الصح (طريقة الجملة السرية):</strong> اختار جملة تحبها وحوّلها.
+                            مثلاً:<br>الجملة: "أني أحب أكل الدولمة يوم الجمعة"<br>تتحول إلى: <span
+                                class="highlight">Ani@7bDolma#Jum3a</span><br>هاي الكلمة طويلة، متنوعة، وصعبة التخمين،
+                            بس سهلة عليك تتذكرها.</p>
+                    </li>
+                </ol>
+                <div class="tip">
+                    <strong>أكبر غلطة: كلمة وحدة لكل المواقع!</strong>
+                    <p>تخيل عندك مفتاح واحد يفتح باب بيتك، سيارتك، ومكتبك، إذا ضاع هالمفتاح، كلشي راح، نفس الشي يصير من
+                        تستخدم نفس الباسورد بكل مكان، إذا تسرب هالباسورد من موقع واحد، المخترق راح يجربه على كل حساباتك.
+                    </p>
+                    <p><strong>الحل؟ مدير كلمات المرور (Password Manager):</strong> هذا عبارة عن "القاصة" الرقمية اللي
+                        تحفظلك كل باسورداتك، أنت تحتاج تحفظ باسورد واحد قوي جدًا، وهو باسورد القاصة نفسها، أفضل الخيارات
+                        هي <strong>Bitwarden</strong> (مجاني ومفتوح المصدر) أو الخدمات المدمجة مثل <strong>Google
+                            Password Manager</strong> و <strong>Apple Keychain</strong>.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>المحور الثاني – التحقق بخطوتين (2FA): القفل الثاني على الباب</h2>
+                <p>تخيل واحد گدر ينسخ مفتاح بيتك (يبوگ الباسورد). من يجي يفتح الباب، يتفاجأ بوجود قفل ثاني يطلب بصمة
+                    إصبعك. هذا بالضبط هو التحقق بخطوتين (2FA).</p>
+                <h3>شنو أنواع الأكواد هاي؟</h3>
+                <p>
+                <ul>
+                    <li><strong>رسائل SMS (الأقل أمانًا):</strong> يوصلك كود برسالة نصية. جيد، بس مو أفضل شي، لأن
+                        الشريحة (SIM Card) ممكن تنباگ أو يتم استنساخها</li>
+                    <li><strong>تطبيقات المصادقة (الخيار المفضل):</strong> تطبيقات مثل <strong>Google
+                            Authenticator</strong> أو <strong>Authy</strong> تولّد كود جديد كل 30 ثانية مرتبط بجهازك أنت
+                        فقط، هذا الخيار آمن جدًا</li>
+                    <li><strong>مفاتيح الأمان (الأقوى على الإطلاق):</strong> قطعة USB صغيرة (مثل YubiKey) تستخدمها
+                        لتأكيد هويتك، هذا هو أعلى مستوى أمان</li>
+                </ul>
+                </p>
+                <div class="tip"><strong>نصيحة عملية:</strong> اليوم، هسه، روح على إعدادات الأمان بفيسبوك، انستغرام،
+                    وجيميل، وفعّل خاصية التحقق بخطوتين، اختار "تطبيق المصادقة" إذا متوفر، هاي الخطوة أهم من تغيير
+                    الباسورد نفسه.</div>
+            </div>
+
+            <div class="section">
+                <h2>المحور الثالث – التصيد الاحتيالي (Phishing): السنارة اللي تصيدك</h2>
+                <p>التصيد هو أشهر وأخطر طريقة لسرقة الحسابات. الفكرة هي <strong>خداعك</strong> حتى تنطي معلوماتك بنفسك،
+                    توصلك رسالة مزيفة تطلب منك "تأمين حسابك" أو "استلام جائزة"، وتنقلك لصفحة تشبه فيسبوك أو البنك حتى
+                    تكتب باسوردك.</p>
+                <h3>شلون تكشف السمچة الخايسة (الرابط المشبوه)؟</h3>
+                <ol>
+                    <li><strong>دقق بعنوان الرابط (URL) قبل كلشي:</strong> باوع على الكلمة اللي تجي قبل .com. الرابط
+                        الحقيقي لفيسبوك هو facebook.com، بينما المزيف ممكن يكون faecbook.com أو facebook-secure.xyz.
+                    </li>
+                    <li><strong>لا تثق بالمرسل 100%:</strong> حتى لو الرسالة من صديقك، ممكن يكون حسابه مخترَق، اتصل بيه
+                        وتأكد إذا طلب شي غريب.</li>
+                    <li><strong>انتبه للغة الركيكة والأخطاء الإملائية:</strong> الشركات الكبيرة نادرًا ما تغلط برسائلها
+                        الرسمية.</li>
+                    <li><strong>لا تفتح أي مرفقات (Attachments) غريبة:</strong> إذا ما جنت متوقع الملف، لا تفتحه.</li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>المحور الرابع – نصائح ذهبية سريعة</h2>
+                <p>
+                <ul>
+                    <li><strong>حدّث كلشي، دائمًا:</strong> فعّل التحديث التلقائي لنظام التشغيل والتطبيقات، التحديثات
+                        تسد ثغرات أمنية خطيرة</li>
+                    <li><strong>الواي فاي العام = مكان عام:</strong> لا تدخل على حساباتك البنكية أو الحساسة من شبكة واي
+                        فاي عامة. استخدم <strong>VPN</strong> لتشفير اتصالك</li>
+                    <li><strong>النسخ الاحتياطي (Backup) مو رفاهية:</strong> فعّل النسخ الاحتياطي التلقائي لصورك وملفاتك
+                        على خدمات مثل Google Drive أو iCloud</li>
+                    <li><strong>فكّر قبل ما تشارك:</strong> كل معلومة تنشرها تبقى على الإنترنت للأبد، اسأل نفسك: "هل
+                        ممكن أحد يستغل هاي المعلومة ضدي؟"</li>
+                </ul>
+                </p>
+            </div>
+
+            <div class="section">
+                <h2>الخاتمة</h2>
+                <p>الأمان الرقمي مو سباق سرعة، هو ماراثون، مو مجموعة خطوات تسويها مرة وحدة وتنسى، هو عبارة عن
+                    <strong>عادات</strong> و<strong>وعي</strong> تبنيها يوم بعد يوم، مثل ما تقفل باب بيتك كل يوم بدون ما
+                    تفكر، لازم تصير حمايتك الرقمية جزء من روتينك.</p>
+                <p>تذكر دائمًا: <strong>أضعف حلقة في سلسلة الأمان هي أنت، المستخدم، وبنفس الوقت، أنت أقوى خط دفاع إذا
+                        كنت واعي.</strong></p>
+            </div>
+        </main>
+
+        <!-- قسم طلب الشهادة والفورما الديناميكي -->
+        <div id="certificate-trigger">
+            <button id="show-form-btn"> اكملت القراءة</button>
+        </div>
+        <div id="form-section">
+            <h2>نموذج طلب شهادة الحضور</h2>
+            <form id="certificate-form">
+                <div class="form-group">
+                    <label for="full-name">الاسم الثلاثي باللغة الإنجليزية <span class="required-star">*</span></label>
+                    <input type="text" id="full-name" name="Full Name (English)" required dir="ltr">
+                </div>
+                <div class="form-group">
+                    <label for="email">البريد الإلكتروني <span class="required-star">*</span></label>
+                    <in""put type="email" id="email" name="Email" required dir="ltr">
+                </div>
+                <div class="form-group">
+                    <label for="learning">ماذا تعلمت من هذه الورشة؟ <span class="required-star">*</span></label>
+                    <textarea id="learning" name="What I Learned" required></textarea>
+                </div>
+                <button type="submit" class="form-submit-btn">إرسال الطلب</button>
+            </form>
+        </div>
+        <div id="thank-you-message">
+            <h2>شكرًا لك!</h2>
+            <p>لقد تم استلام طلبك بنجاح. سيتم مراجعة البيانات وإرسال الشهادة إلى بريدك الإلكتروني في أقرب وقت ممكن.</p>
+            <p>نقدر لك وقتك ومشاركتك.</p>
+            <p class="org-name">Basra Flow</p>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Basra Flow. جميع الحقوق محفوظة.</p>
+        </footer>
+    </div>
+
+    <!-- كود JavaScript للتحكم بالتفاعل -->
+    <script>
+        const showFormBtn = document.getElementById('show-form-btn');
+        window.addEventListener('scroll', function () {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+                showFormBtn.style.display = 'inline-block';
+            }
+        });
+
+        const formSection = document.getElementById('form-section');
+        const certificateTrigger = document.getElementById('certificate-trigger');
+        showFormBtn.addEventListener('click', function () {
+            formSection.style.display = 'block';
+            certificateTrigger.style.display = 'none';
+            formSection.scrollIntoView();
+        });
+
+        const certificateForm = document.getElementById('certificate-form');
+        const thankYouMessage = document.getElementById('thank-you-message');
+        certificateForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const formData = new FormData(certificateForm);
+            const formspreeEndpoint = 'https://formspree.io/f/mblaqkag'; // <<-- مهم: تأكد من صحة هذا الرابط
+
+            fetch(formspreeEndpoint, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    formSection.style.display = 'none';
+                    thankYouMessage.style.display = 'block';
+                    thankYouMessage.scrollIntoView();
+                } else {
+                    alert('حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى.');
+                }
+            }).catch(error => {
+                alert('حدث خطأ في الشبكة. يرجى التحقق من اتصالك بالإنترنت.');
+            });
+        });
+    </script>
+
+</body>
+
+</html>
